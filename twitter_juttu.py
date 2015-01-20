@@ -5,17 +5,9 @@ import sys
 
 laskuri = {}
 
-a1 = "Vaalit"
-a2 = "miten"
-a3 = "Suomen"
-
-b1 = "lol"
-b2 = "how"
-b3 = "lels"
-
-c1 = "Vaalit"
-c2 = "miten"
-c3 = "moi"
+a = ["Vaalit", "miten", "Suomen", "Miten"]
+b = ["Vihree", "Punainen", "Sininen"]
+c = ["odottaa", "alkaa", "moi"]
 
 teema1 = {}
 teema2 = {}
@@ -47,23 +39,26 @@ for tiedosto in sys.argv[1:]:
 
             if aika not in teema3:
                 teema3[aika] = 0
-        
-            if a1 in teema_lista or a2 in teema_lista or a3 in teema_lista:
-                teema1[aika] += 1
 
-            if b1 in teema_lista or b2 in teema_lista or b3 in teema_lista:
-                teema2[aika] += 1
-             
-            if c1 in teema_lista or c2 in teema_lista or c3 in teema_lista:
-                teema3[aika] += 1
+            for x in a:
+                if x in teema_lista:
+                    teema1[aika] += 1
+                
+            for x in b:
+                if x in teema_lista:
+                    teema2[aika] += 1
+                
+            for x in c:
+                if x in teema_lista:
+                    teema3[aika] += 1
 
         ##print teema_lista
-    #print teema1
-    #print teema2
-    #print teema3
+#print teema1
+#print teema2
+#print teema3
 
-    for paiva in sorted( laskuri.keys()) and theme1 in sorted(teema1.keys()):
-        print paiva , "," , laskuri[ paiva ], "," , teema1[theme1], ",", "teema2", ",", "teema3"
+    for paiva in sorted( laskuri.keys()):
+        print paiva , "," , laskuri[ paiva ], "," , teema1[paiva], ",", teema2[paiva], ",", teema3[paiva]
 
 
 
