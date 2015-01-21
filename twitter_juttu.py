@@ -9,9 +9,11 @@ a = ["Vaalit", "miten", "Suomen", "Miten"]
 b = ["Vihree", "Punainen", "Sininen"]
 c = ["odottaa", "alkaa", "moi"]
 
+kaikki_teemat = [a, b, c]
+
 teema1 = {}
-teema2 = {}
-teema3 = {}
+
+isoteema = len(kaikki_teemat)
 
 for tiedosto in sys.argv[1:]:
 
@@ -34,37 +36,21 @@ for tiedosto in sys.argv[1:]:
             if aika not in teema1:
                 teema1[aika] = 0
 
-            if aika not in teema2:
-                teema2[aika] = 0
-
-            if aika not in teema3:
-                teema3[aika] = 0
-
-            flag = False
-            for x in a:
-                if x in teema_lista and flag == False:
-                    teema1[aika] += 1
-                    flag = True
+            for y in range(0, isoteema):
+        
+                flag = False
+                for x in kaikki_teemat[y]:
+                    if x in teema_lista and flag == False:
+                        teema1[aika] += 1
+                        flag = True
                 
-            flag = False       
-            for x in b:
-                if x in teema_lista:
-                    teema2[aika] += 1
-                    flag = True
-                
-            flag = False        
-            for x in c:
-                if x in teema_lista:
-                    teema3[aika] += 1
-                    flag = True
-
-            ##print teema_lista
-    #print teema1
-    #print teema2
-    #print teema3
+        ##print teema_lista
+#print teema1
+#print teema2
+#print teema3
 
     for paiva in sorted( laskuri.keys()):
-        print paiva , "," , laskuri[ paiva ], "," , teema1[paiva], ",", teema2[paiva], ",", teema3[paiva]
+        print paiva , "," , laskuri[ paiva ], "," , teema1[paiva]
 
 
 
