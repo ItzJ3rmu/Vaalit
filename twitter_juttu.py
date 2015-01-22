@@ -15,11 +15,13 @@ teema1 = {}
 
 isoteema = len(kaikki_teemat)
 
+laskuri_teemat = [{}, {}, {}]
+
 for tiedosto in sys.argv[1:]:
 
     with open(tiedosto) as json_data:
-        d = json.load(json_data)
-        json_data.close()
+    d = json.load(json_data)
+    json_data.close()
 
         for tweet in d:
             aika = datetime.datetime.fromtimestamp(
@@ -33,19 +35,19 @@ for tiedosto in sys.argv[1:]:
 
             teema_lista = tweet['text']
 
-            if aika not in teema1:
-                teema1[aika] = 0
+            if aika not in laskuri_teemat:
+                laskuri_teemat[aika] = 0
 
             for y in range(0, isoteema):
             
                 flag = False
                 for x in kaikki_teemat[y]:
                     if x in teema_lista and flag == False:
-                        teema1[aika] += 1
+                        laskuri_teemat[y][aika] += 1
                         flag = True
 
     for paiva in sorted( laskuri.keys()):
-        print paiva , "," , laskuri[ paiva ], "," , teema1[paiva]
+        print paiva , "," , laskuri[ paiva ], "," , laskuri_teemat[paiva]
 
 
 
