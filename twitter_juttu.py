@@ -12,9 +12,6 @@ c = ["odottaa", "alkaa", "moi"]
 kaikki_teemat = [a, b, c]
 
 teema1 = {}
-testi = {}
-testi2 = {}
-testi3 = {}
 
 isoteema = len(kaikki_teemat)
 
@@ -44,17 +41,8 @@ for tiedosto in sys.argv[1:]:
                 flag = False
                 for x in kaikki_teemat[y]:
                     if x in teema_lista and flag == False:
-                        testi[aika] = x
-                        testi2[y] = x
-                        testi3[aika] = y
                         teema1[aika] += 1
                         flag = True
-
-    print testi
-    print testi3
-
-        ##print teema_lista
-    print teema1
 
     for paiva in sorted( laskuri.keys()):
         print paiva , "," , laskuri[ paiva ], "," , teema1[paiva]
