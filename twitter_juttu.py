@@ -15,6 +15,9 @@ isoteema = len(kaikki_teemat)
 
 laskuri_teemat = []
 
+for i in kaikki_teemat:
+    laskuri_teemat.append( {} )
+
 for tiedosto in sys.argv[1:]:
 
     with open(tiedosto) as json_data:
@@ -35,12 +38,8 @@ for tiedosto in sys.argv[1:]:
 
             for y in range(0, isoteema):
 
-                laskuri_teemat.append({})
-
                 if aika not in laskuri_teemat[y]:
                     laskuri_teemat[y][aika] = 0
-
-                print len( laskuri_teemat )
 
 
                 flag = False
