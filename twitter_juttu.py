@@ -27,7 +27,7 @@ for tiedosto in sys.argv[1:]:
                 ).strftime('%Y-%m-%d')
 
             if aika not in laskuri:
-               laskuri[aika] = 0
+                laskuri[aika] = 0
 
             laskuri[aika] += 1
 
