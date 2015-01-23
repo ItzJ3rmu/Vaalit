@@ -15,9 +15,6 @@ isoteema = len(kaikki_teemat)
 
 laskuri_teemat = []
 
-tiedosto = "export.1884.json"
-
-
 for tiedosto in sys.argv[1:]:
 
     with open(tiedosto) as json_data:
