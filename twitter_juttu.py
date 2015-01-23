@@ -35,11 +35,18 @@ for tiedosto in sys.argv[1:]:
         
             for y in range(0, isoteema):
 
+<<<<<<< HEAD
                 laskuri_teemat.append({}) 
 
                 if aika not in laskuri_teemat[y]:
                     laskuri_teemat[y][aika] = 0
 
+=======
+            for y in range(0, isoteema):
+                
+                if aika not in laskuri_teemat[y]:
+                    laskuri_teemat[y][aika] = 0
+>>>>>>> origin/master
             
                 flag = False
                 for x in kaikki_teemat[y]:
