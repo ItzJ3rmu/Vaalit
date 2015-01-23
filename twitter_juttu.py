@@ -39,11 +39,6 @@ for tiedosto in sys.argv[1:]:
 
                 if aika not in laskuri_teemat[y]:
                     laskuri_teemat[y][aika] = 0
-
-            for y in range(0, isoteema):
-                
-                if aika not in laskuri_teemat[y]:
-                    laskuri_teemat[y][aika] = 0
             
                 flag = False
                 for x in kaikki_teemat[y]:
