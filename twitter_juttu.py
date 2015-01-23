@@ -40,6 +40,8 @@ for tiedosto in sys.argv[1:]:
                 if aika not in laskuri_teemat[y]:
                     laskuri_teemat[y][aika] = 0
 
+                print len( laskuri_teemat )
+
 
                 flag = False
                 for x in kaikki_teemat[y]:
