@@ -32,29 +32,23 @@ for tiedosto in sys.argv[1:]:
             laskuri[aika] += 1
 
             teema_lista = tweet['text']
-        
+
             for y in range(0, isoteema):
 
-                laskuri_teemat.append({}) 
+                laskuri_teemat.append({})
 
                 if aika not in laskuri_teemat[y]:
                     laskuri_teemat[y][aika] = 0
 
-            
+
                 flag = False
                 for x in kaikki_teemat[y]:
                     if x in teema_lista and flag == False:
                         laskuri_teemat[y][aika] += 1
                         flag = True
-                    
+
     for paiva in sorted( laskuri.keys()):
         tarkastus = ''
         for tulostus in range(0, isoteema):
             tarkastus += str(laskuri_teemat[tulostus][paiva]) + " , "
-        print paiva , "," , laskuri[ paiva ], "," , tarkastus
-
-
-
-
-
-
+        print paiva , "," , laskuri[ paiva ], "," , tarkastus[ : -2 ]
