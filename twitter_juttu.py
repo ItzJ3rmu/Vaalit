@@ -44,7 +44,7 @@ for tiedosto in sys.argv[1:]:
 
                 flag = False
                 for x in kaikki_teemat[y]:
-                    if x in teema_lista and flag == False:
+                    if x in teema_lista and not flag:
                         laskuri_teemat[y][aika] += 1
                         flag = True
 
