@@ -35,10 +35,10 @@ for tiedosto in sys.argv[1:]:
 
             teema_lista = tweet['text']
 
-            if aika not in laskuri_teemat:
-                laskuri_teemat[aika] = 0
-
             for y in range(0, isoteema):
+                
+                if aika not in laskuri_teemat[y]:
+                    laskuri_teemat[y][aika] = 0
             
                 flag = False
                 for x in kaikki_teemat[y]:
