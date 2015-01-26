@@ -7,17 +7,15 @@ laskuri = {}
 
 teemat = "teemat.txt"
 
-f = open(teemat, 'r')
+tiedosto = open(teemat, 'r')
 
 jako = []
 
-for line in f:
+for line in tiedosto:
     line = line.strip()
     jako.append(line.split(","))
 
-kaikki_teemat = [jako]
-
-teema_lasku = len(kaikki_teemat)
+teema_lasku = len(jako)
 
 teemat_lista = []
 
@@ -45,10 +43,9 @@ for tiedosto in sys.argv[1:]:
 
                 if aika not in teemat_lista[y]:
                     teemat_lista[y][aika] = 0
-
             
                 flag = False
-                for x in kaikki_teemat[y]:
+                for x in jako[y]:
                     if x in teksti_lista and flag == False:
                         teemat_lista[y][aika] += 1
                         flag = True
