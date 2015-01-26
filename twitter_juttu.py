@@ -49,9 +49,12 @@ for tiedosto in sys.argv[1:]:
 
 
     for paiva in sorted( laskuri[0].keys() ):
-        teema_tulostus = ''
 
-        for tulostus in range(0, len( teemat ) ):
-            teema_tulostus += str( laskuri[tulostus + 1][paiva]) + " , "
+        tiedot = []
 
-        print paiva , "," , laskuri[ 0 ][ paiva ], "," , teema_tulostus
+        for rivi in laskuri:
+            tiedot.append( rivi[paiva] )
+
+        tiedot = map( str, tiedot )
+
+        print paiva + ',' + ','.join( tiedot )
