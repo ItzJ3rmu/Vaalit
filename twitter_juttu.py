@@ -9,17 +9,13 @@ teemat = "teemat.txt"
 
 tiedosto = open(teemat, 'r')
 
-jako = []
+teemat_lista = []
 
 for line in tiedosto:
     line = line.strip()
-    jako.append(line.split(","))
-
-teema_lasku = len(jako)
+    teemat_lista.append(line.split(","))
 
 laskuri_teemat = []
-
-teemat_lista = jako
 
 for i in teemat_lista:
     laskuri_teemat.append( {} )
@@ -39,9 +35,10 @@ for tiedosto in sys.argv[1:]:
                 laskuri[aika] = 0
 
             laskuri[aika] += 1
+
             teksti_lista = tweet['text']
 
-            for y in range(0, teema_lasku):
+            for y in range(0, len( teemat_lista) ):
 
                 flag = False
 
@@ -49,6 +46,7 @@ for tiedosto in sys.argv[1:]:
                     laskuri_teemat[y][aika] = 0
 
                 for x in teemat_lista[y]:
+
                     if x in teksti_lista and not flag:
                         laskuri_teemat[y][aika] += 1
                         flag = True
@@ -56,6 +54,6 @@ for tiedosto in sys.argv[1:]:
 
     for paiva in sorted( laskuri.keys() ):
         teema_tulostus = ''
-        for tulostus in range(0, teema_lasku):
+        for tulostus in range(0, len( teemat_lista) ):
             teema_tulostus += str( laskuri_teemat[tulostus][paiva]) + " , "
         print paiva , "," , laskuri[ paiva ], "," , teema_tulostus
