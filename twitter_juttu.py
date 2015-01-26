@@ -3,8 +3,6 @@ from pprint import pprint
 import datetime
 import sys
 
-laskuri = {}
-
 teemat = "teemat.txt"
 
 tiedosto = open(teemat, 'r')
@@ -15,10 +13,10 @@ for line in tiedosto:
     line = line.strip()
     teemat.append(line.split(","))
 
-laskuri_teemat = []
+laskuri = [ {} ]
 
 for i in teemat:
-    laskuri_teemat.append( {} )
+    laskuri.append( {} )
 
 for tiedosto in sys.argv[1:]:
 
@@ -32,9 +30,9 @@ for tiedosto in sys.argv[1:]:
                 ).strftime('%Y-%m-%d')
 
             if aika not in laskuri:
-                laskuri[aika] = 0
+                laskuri[0][aika] = 0
 
-            laskuri[aika] += 1
+            laskuri[0][aika] += 1
 
             viesti = tweet['text']
 
@@ -43,19 +41,19 @@ for tiedosto in sys.argv[1:]:
                 flag = False
 
                 if aika not in teemat[y]:
-                    laskuri_teemat[y][aika] = 0
+                    laskuri[y + 1][aika] = 0
 
                 for termi in teemat[y]:
 
                     if termi in viesti and not flag:
-                        laskuri_teemat[y][aika] += 1
+                        laskuri[y + 1][aika] += 1
                         flag = True
 
 
-    for paiva in sorted( laskuri.keys() ):
+    for paiva in sorted( laskuri[0].keys() ):
         teema_tulostus = ''
 
         for tulostus in range(0, len( teemat ) ):
-            teema_tulostus += str( laskuri_teemat[tulostus][paiva]) + " , "
+            teema_tulostus += str( laskuri[tulostus + 1][paiva]) + " , "
 
-        print paiva , "," , laskuri[ paiva ], "," , teema_tulostus
+        print paiva , "," , laskuri[ 0 ][ paiva ], "," , teema_tulostus
