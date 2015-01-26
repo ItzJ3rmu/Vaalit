@@ -18,14 +18,12 @@ for i in teemat:
 
 for tiedosto in sys.argv[1:]:
 
-    with open(tiedosto) as json_data:
-        date = json.load(json_data)
-        json_data.close()
+    with open(tiedosto) as tweets:
+        tweets = json.load( tweets )
 
-        for tweet in date:
-            aika = datetime.datetime.fromtimestamp(
-                    int(tweet['time'])
-                ).strftime('%Y-%m-%d')
+        for tweet in tweets:
+            
+            aika = datetime.datetime.fromtimestamp( int(tweet['time']) ).strftime('%Y-%m-%d')
 
             if aika not in laskuri:
                 laskuri[0][aika] = 0
