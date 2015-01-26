@@ -5,7 +5,7 @@ import sys
 
 teemat = []
 
-for rivi in open( "teemat.txt" , 'r'):
+for rivi in open( sys.argv[ -1 ] , 'r'):
     rivi = rivi.strip()
     rivi = rivi.split(',')
     rivi = map( lambda x: x.strip() , rivi )
@@ -16,43 +16,43 @@ laskuri = [ {} ]
 for i in teemat:
     laskuri.append( {} )
 
-for tiedosto in sys.argv[1:]:
+for tiedosto in sys.argv[ 1: -1 ]:
 
-    with open(tiedosto) as tweets:
-        tweets = json.load( tweets )
+    print laskuri[0]
 
-        for tweet in tweets:
-            
-            aika = datetime.datetime.fromtimestamp( int(tweet['time']) ).strftime('%Y-%m-%d')
+    tweets = json.load( open( tiedosto , 'r' ) )
 
-            if aika not in laskuri:
-                laskuri[0][aika] = 0
+    for tweet in tweets:
 
-            laskuri[0][aika] += 1
+        aika = datetime.datetime.fromtimestamp( int(tweet['time']) ).strftime('%Y-%m-%d')
 
-            viesti = tweet['text']
+        if aika not in laskuri[0]:
+            laskuri[0][aika] = 0
 
-            for y in range(0, len( teemat ) ):
+        laskuri[0][aika] += 1
 
-                flag = False
+        viesti = tweet['text']
 
-                if aika not in teemat[y]:
-                    laskuri[y + 1][aika] = 0
+        for y in range(0, len( teemat ) ):
 
-                for termi in teemat[y]:
+            flag = False
 
-                    if termi in viesti and not flag:
-                        laskuri[y + 1][aika] += 1
-                        flag = True
+            if aika not in laskuri[y + 1]:
+                laskuri[y + 1][aika] = 0
 
+            for termi in teemat[y]:
 
-    for paiva in sorted( laskuri[0].keys() ):
+                if termi in viesti and not flag:
+                    laskuri[y + 1][aika] += 1
+                    flag = True
 
-        tiedot = []
+for paiva in sorted( laskuri[0].keys() ):
 
-        for rivi in laskuri:
-            tiedot.append( rivi[paiva] )
+    tiedot = []
 
-        tiedot = map( str, tiedot )
+    for rivi in laskuri:
+        tiedot.append( rivi[paiva] )
 
-        print paiva + ',' + ','.join( tiedot )
+    tiedot = map( str, tiedot )
+
+    print paiva + ',' + ','.join( tiedot )
