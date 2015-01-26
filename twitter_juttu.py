@@ -3,15 +3,13 @@ from pprint import pprint
 import datetime
 import sys
 
-teemat = "teemat.txt"
-
-tiedosto = open(teemat, 'r')
-
 teemat = []
 
-for line in tiedosto:
-    line = line.strip()
-    teemat.append(line.split(","))
+for rivi in open( "teemat.txt" , 'r'):
+    rivi = rivi.strip()
+    rivi = rivi.split(',')
+    rivi = map( lambda x: x.strip() , rivi )
+    teemat.append( rivi )
 
 laskuri = [ {} ]
 
