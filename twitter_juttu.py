@@ -5,26 +5,32 @@ import sys
 
 laskuri = {}
 
-a = ["Vaalit", "miten", "Suomen", "Miten"]
-b = ["tavoittelu", "kiva", "Sininen"]
-c = ["odottaa", "on", "moi"]
+teemat = "teemat.txt"
 
-kaikki_teemat = [a, b, c]
+tiedosto = open(teemat, 'r')
 
-isoteema = len(kaikki_teemat)
+jako = []
+
+for line in tiedosto:
+    line = line.strip()
+    jako.append(line.split(","))
+
+teema_lasku = len(jako)
 
 laskuri_teemat = []
 
-for i in kaikki_teemat:
+teemat_lista = jako
+
+for i in teemat_lista:
     laskuri_teemat.append( {} )
 
 for tiedosto in sys.argv[1:]:
 
     with open(tiedosto) as json_data:
-        d = json.load(json_data)
+        date = json.load(json_data)
         json_data.close()
 
-        for tweet in d:
+        for tweet in date:
             aika = datetime.datetime.fromtimestamp(
                     int(tweet['time'])
                 ).strftime('%Y-%m-%d')
@@ -33,23 +39,23 @@ for tiedosto in sys.argv[1:]:
                 laskuri[aika] = 0
 
             laskuri[aika] += 1
+            teksti_lista = tweet['text']
 
-            teema_lista = tweet['text']
-
-            for y in range(0, isoteema):
-
-                if aika not in laskuri_teemat[y]:
-                    laskuri_teemat[y][aika] = 0
-
+            for y in range(0, teema_lasku):
 
                 flag = False
-                for x in kaikki_teemat[y]:
-                    if x in teema_lista and not flag:
+
+                if aika not in teemat_lista[y]:
+                    laskuri_teemat[y][aika] = 0
+
+                for x in teemat_lista[y]:
+                    if x in teksti_lista and not flag:
                         laskuri_teemat[y][aika] += 1
                         flag = True
 
-    for paiva in sorted( laskuri.keys()):
-        tarkastus = ''
-        for tulostus in range(0, isoteema):
-            tarkastus += str(laskuri_teemat[tulostus][paiva]) + " , "
-        print paiva , "," , laskuri[ paiva ], "," , tarkastus[ : -2 ]
+
+    for paiva in sorted( laskuri.keys() ):
+        teema_tulostus = ''
+        for tulostus in range(0, teema_lasku):
+            teema_tulostus += str( laskuri_teemat[tulostus][paiva]) + " , "
+        print paiva , "," , laskuri[ paiva ], "," , teema_tulostus
