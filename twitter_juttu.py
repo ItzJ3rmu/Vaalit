@@ -2,6 +2,7 @@ import json
 from pprint import pprint
 import datetime
 import sys
+import collections
 
 teemat = []
 
@@ -11,23 +12,18 @@ for rivi in open( sys.argv[ -1 ] , 'r'):
     rivi = map( lambda x: x.strip() , rivi )
     teemat.append( rivi )
 
-laskuri = [ {} ]
+laskuri = [ collections.defaultdict( int ) ]
 
 for i in teemat:
-    laskuri.append( {} )
+    laskuri.append( collections.defaultdict( int ) )
 
 for tiedosto in sys.argv[ 1: -1 ]:
-
-    print laskuri[0]
 
     tweets = json.load( open( tiedosto , 'r' ) )
 
     for tweet in tweets:
 
         aika = datetime.datetime.fromtimestamp( int(tweet['time']) ).strftime('%Y-%m-%d')
-
-        if aika not in laskuri[0]:
-            laskuri[0][aika] = 0
 
         laskuri[0][aika] += 1
 
@@ -36,9 +32,6 @@ for tiedosto in sys.argv[ 1: -1 ]:
         for y in range(0, len( teemat ) ):
 
             flag = False
-
-            if aika not in laskuri[y + 1]:
-                laskuri[y + 1][aika] = 0
 
             for termi in teemat[y]:
 
