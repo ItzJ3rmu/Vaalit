@@ -2,62 +2,50 @@ import json
 from pprint import pprint
 import datetime
 import sys
+import collections
 
-laskuri = {}
+teemat = []
 
-teemat = "teemat.txt"
+for rivi in open( sys.argv[ -1 ] , 'r'):
+    rivi = rivi.strip()
+    rivi = rivi.split(',')
+    rivi = map( lambda x: x.strip() , rivi )
+    teemat.append( rivi )
 
-tiedosto = open(teemat, 'r')
+laskuri = [ collections.defaultdict( int ) ]
 
-jako = []
+for i in teemat:
+    laskuri.append( collections.defaultdict( int ) )
 
-for line in tiedosto:
-    line = line.strip()
-    jako.append(line.split(","))
+for tiedosto in sys.argv[ 1: -1 ]:
 
-teema_lasku = len(jako)
+    tweets = json.load( open( tiedosto , 'r' ) )
 
-teemat_lista = []
+    for tweet in tweets:
 
-for tiedosto in sys.argv[1:]:
+        aika = datetime.datetime.fromtimestamp( int(tweet['time']) ).strftime('%Y-%m-%d')
 
-    with open(tiedosto) as json_data:
-        date = json.load(json_data)
-        json_data.close()
+        laskuri[0][aika] += 1
 
-        for tweet in date:
-            aika = datetime.datetime.fromtimestamp(
-                    int(tweet['time'])
-                ).strftime('%Y-%m-%d')
+        viesti = tweet['text']
 
-            if aika not in laskuri:
-                laskuri[aika] = 0
+        for y in range(0, len( teemat ) ):
 
-            laskuri[aika] += 1
+            flag = False
 
-            teksti_lista = tweet['text']
-        
-            for y in range(0, teema_lasku):
+            for termi in teemat[y]:
 
-                teemat_lista.append({}) 
+                if termi in viesti and not flag:
+                    laskuri[y + 1][aika] += 1
+                    flag = True
 
-                if aika not in teemat_lista[y]:
-                    teemat_lista[y][aika] = 0
-            
-                flag = False
-                for x in jako[y]:
-                    if x in teksti_lista and flag == False:
-                        teemat_lista[y][aika] += 1
-                        flag = True
-                    
-    for paiva in sorted( laskuri.keys()):
-        teema_tulostus = ''
-        for tulostus in range(0, teema_lasku):
-            teema_tulostus += str(teemat_lista[tulostus][paiva]) + " , "
-        print paiva , "," , laskuri[ paiva ], "," , teema_tulostus
+for paiva in sorted( laskuri[0].keys() ):
 
+    tiedot = []
 
+    for rivi in laskuri:
+        tiedot.append( rivi[paiva] )
 
+    tiedot = map( str, tiedot )
 
-
-
+    print paiva + ',' + ','.join( tiedot )
